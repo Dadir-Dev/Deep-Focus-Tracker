@@ -8,6 +8,7 @@
   <body>
     <!-- Header -->
     <header>
+      <h1>Deep Focus Tracker</h1>
       <nav>
         <a href="#">Home</a>
         <a href="#">Reports</a>
@@ -17,19 +18,25 @@
     <main>
       <section id="timer-section">
         <h2>Focus Timer</h2>
-        <div class="timer-display">00:00:00</div>
-        <div class="timer-controls">
-          <button class="start">Start</button>
-          <button class="pause">Pause</button>
-          <button class="continue">Continue</button>
-          <button class="stop">Stop</button>
+        <div class="timer-display" id="timer-display">00:00:00</div>
+        <div class="timer-controls" id="timer-controls">
+          <button class="start" id="start">Start</button>
+          <button class="pause" id="pause">Pause</button>
+          <button class="continue" id="continue">Continue</button>
+          <button class="stop" id="stop">Stop</button>
         </div>
       </section>
       <section id="today-section">
         <h2>Today's Focus</h2>
-        <div class="today-report">
-          <p>Total Focus Time: <span class="today-total">00:00:00</span></p>
-          <p>Total Sessions: <span class="today-sessions">0</span></p>
+        <div class="today-report" id="today-report">
+          <p>
+            Total Focus Time:
+            <span class="today-total" id="today-total">00:00:00</span>
+          </p>
+          <p>
+            Total Sessions:
+            <span class="today-sessions" id="today-sessions">0</span>
+          </p>
         </div>
       </section>
       <section id="history-section">
@@ -41,7 +48,7 @@
     </main>
     <!-- Footer -->
     <footer>
-      <p>© 2025 Focus Tracker. All rights reserved.</p>
+      <p>© 2025 Deep Focus Tracker. All rights reserved.</p>
     </footer>
   </body>
 </html>
