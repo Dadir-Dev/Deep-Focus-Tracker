@@ -8,7 +8,7 @@ const domElements = {
   stopBtn: document.getElementById("stop"),
 };
 
-// ====== Variables =====
+// ====== Variables/States =====
 
 let variables = {
   seconds: 0,
@@ -16,6 +16,7 @@ let variables = {
   hours: 0,
   interval: null,
   isRunning: false,
+  sessions: [],
 };
 
 // ===== Initialize the App =====
@@ -66,12 +67,40 @@ function continueTimer() {
 
 // ===== Function to stop the timer =====
 function stopTimer() {
+  saveSession(); // Save the session when user clicks “Stop”
   clearInterval(variables.interval);
   variables.seconds = 0;
   variables.minutes = 0;
   variables.hours = 0;
   variables.isRunning = false;
   updateDisplay();
+}
+
+// ===== Function to save sessions =====
+function saveSession() {
+  const duration = `${String(variables.hours).padStart(2, "0")}:${String(
+    variables.minutes
+  ).padStart(2, "0")}:${String(variables.seconds).padStart(2, "0")}`;
+  const date = new Date().toISOString();
+
+  const sessions = { duration, date };
+  variables.sessions.push(sessions);
+  console.log(variables.sessions);
+  updateSessionList();
+}
+
+// Display session list
+function updateSessionList() {
+  const list = document.getElementById("session-list");
+  list.innerHTML = ""; // clear old list
+
+  variables.sessions.forEach((session) => {
+    const li = document.createElement("li");
+    li.textContent = `${session.duration} — ${new Date(
+      session.date
+    ).toLocaleTimeString()}`;
+    list.appendChild(li);
+  });
 }
 
 // ===== Event handlers and Interactivity =====
