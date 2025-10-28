@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deep Focus Tracker</title>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="container">
+        <div class="nav-content">
+          <div class="logo">Deep Focus</div>
+          <ul class="nav-links">
+            <li><a href="#" class="nav-link active">Home</a></li>
+            <li><a href="#" class="nav-link"></a>Reports</li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Home Page -->
+
+    <div id="home" class="page">
+      <div class="container">
+        <h1 class="text-center">Focus Timer</h1>
+
+        <!-- Timer -->
+        <div class="timer-container">
+          <div class="time-display" id="timerDisplay">25:00</div>
+
+          <div class="timer-controls">
+            <input type="number" class="timer-input" />
+            <span>minutes</span>
+          </div>
+
+          <div class="timer-controls">
+            <button class="btn">Start</button>
+            <button class="btn">Pause</button>
+            <button class="btn">Stop</button>
+          </div>
+        </div>
+
+        <!-- Today's Stats -->
+        <div class="mt-2">
+          <h2 class="mb-1">Today's Progress</h2>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="todayTotal">0h 0m</div>
+              <div class="stat-label">Total Focus Time</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="todaySessions">0</div>
+              <div class="stat-label">Sessions Completed</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="todayAvg">0m</div>
+              <div class="stat-label">Average Session</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Sessions -->
+        <div class="mt-2">
+          <h2 class="mb-1">Recent Sessions</h2>
+          <div class="session-list" id="recentSessions">
+            <div class="session-item">
+              <span>No sessions yet</span>
+              <span class="session-duration">-</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Report Page -->
+    <div class="page" id="report">
+      <div class="container">
+        <h1 class="text-center">Focus Reports</h1>
+
+        <!-- Timeframe Selector -->
+        <div class="timeframe-selector">
+          <button class="timeframe-btn">Today</button>
+          <button class="timeframe-btn">This Week</button>
+          <button class="timeframe-btn">This Month</button>
+          <button class="timeframe-btn">All Time</button>
+        </div>
+
+        <!-- Stats Overview -->
+        <div class="stats-grid">
+          <div class="stats-card">
+            <div class="stats-value">0h 0m</div>
+            <div class="stats-label">Total Focus Time</div>
+          </div>
+          <div class="stats-card">
+            <div class="stats-value">0</div>
+            <div class="stats-label">Sessions Completed</div>
+          </div>
+          <div class="stats-card">
+            <div class="stats-value">0m</div>
+            <div class="stats-label">Average Session</div>
+          </div>
+          <div class="stats-card">
+            <div class="stats-value">0</div>
+            <div class="stats-label">Longest Session</div>
+          </div>
+        </div>
+
+        <!-- Simple Charts -->
+      </div>
+    </div>
+  </body>
+</html>
