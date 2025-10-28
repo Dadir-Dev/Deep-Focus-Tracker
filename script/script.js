@@ -83,10 +83,11 @@ function saveSession() {
   ).padStart(2, "0")}:${String(variables.seconds).padStart(2, "0")}`;
   const date = new Date().toISOString();
 
-  const sessions = { duration, date };
-  variables.sessions.push(sessions);
+  const session = { duration, date };
+  variables.sessions.push(session);
   console.log(variables.sessions);
   updateSessionList();
+  updateTodayStats();
 }
 
 // Display session list
@@ -101,6 +102,27 @@ function updateSessionList() {
     ).toLocaleTimeString()}`;
     list.appendChild(li);
   });
+}
+
+function updateTodayStats() {
+  const totalSessions = variables.sessions.length;
+
+  let totalSeconds = 0;
+  variables.sessions.forEach((session) => {
+    const [h, m, s] = session.duration.split(":").map(Number);
+    totalSeconds += h * 3600 + m * 60 + s;
+  });
+
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  document.getElementById("today-total").textContent = `${String(
+    hours
+  ).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(
+    seconds
+  ).padStart(2, "0")}`;
+  document.getElementById("today-sessions").textContent = totalSessions;
 }
 
 // ===== Event handlers and Interactivity =====
