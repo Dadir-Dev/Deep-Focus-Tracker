@@ -22,6 +22,10 @@ let variables = {
 // ===== Initialize the App =====
 function initializeApp() {
   console.log("Deep Focus Tracker App initialized 🚀");
+  loadSessions();
+  updateDisplay();
+  updateSessionList();
+  updateTodayStats();
   setupEventHandlers();
 }
 
@@ -67,17 +71,26 @@ function continueTimer() {
 
 // ===== Function to stop the timer =====
 function stopTimer() {
-  saveSession(); // Save the session when user clicks “Stop”
+  if (!variables.isRunning) return;
   clearInterval(variables.interval);
+  variables.isRunning = false;
+
+  saveSessions(); // Save the session when user clicks “Stop”
+  updateSessionList(); //
+  updateTodayStats();
+  resetTimer();
+}
+
+function resetTimer() {
   variables.seconds = 0;
   variables.minutes = 0;
   variables.hours = 0;
-  variables.isRunning = false;
+
   updateDisplay();
 }
 
 // ===== Function to save sessions =====
-function saveSession() {
+function saveSessions() {
   const duration = `${String(variables.hours).padStart(2, "0")}:${String(
     variables.minutes
   ).padStart(2, "0")}:${String(variables.seconds).padStart(2, "0")}`;
@@ -85,14 +98,25 @@ function saveSession() {
 
   const session = { duration, date };
   variables.sessions.push(session);
+  localStorage.setItem("sessions", JSON.stringify(variables.sessions));
   console.log(variables.sessions);
-  updateSessionList();
-  updateTodayStats();
 }
 
-// Display session list
+function loadSessions() {
+  const saved = JSON.parse(localStorage.getItem("sessions"));
+  if (saved) {
+    variables.sessions = saved;
+  }
+}
+
+// ===== Display session records =====
 function updateSessionList() {
   const list = document.getElementById("session-list");
+
+  if (variables.sessions.length === 0) {
+    list.innerHTML = "<li>No sessions yet. Start focusing! ✨</li>";
+    return;
+  }
   list.innerHTML = ""; // clear old list
 
   variables.sessions.forEach((session) => {
@@ -105,10 +129,16 @@ function updateSessionList() {
 }
 
 function updateTodayStats() {
-  const totalSessions = variables.sessions.length;
+  const today = new Date().toDateString();
+  const todaySessions = variables.sessions.filter(
+    (session) => new Date(session.date).toDateString() === today
+  );
+
+  // console.log(todaySessions);
+  const totaltodaySessions = todaySessions.length;
 
   let totalSeconds = 0;
-  variables.sessions.forEach((session) => {
+  todaySessions.forEach((session) => {
     const [h, m, s] = session.duration.split(":").map(Number);
     totalSeconds += h * 3600 + m * 60 + s;
   });
@@ -122,7 +152,7 @@ function updateTodayStats() {
   ).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(
     seconds
   ).padStart(2, "0")}`;
-  document.getElementById("today-sessions").textContent = totalSessions;
+  document.getElementById("today-sessions").textContent = totaltodaySessions;
 }
 
 // ===== Event handlers and Interactivity =====
