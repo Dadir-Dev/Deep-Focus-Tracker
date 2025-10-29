@@ -11,9 +11,9 @@
       <div class="container">
         <div class="nav-content">
           <div class="logo">Deep Focus</div>
-          <ul class="nav-links">
-            <li><a href="#" class="nav-link active">Home</a></li>
-            <li><a href="#" class="nav-link"></a>Reports</li>
+          <ul class="nav-links" id="navLinks">
+            <li><a href="#" class="nav-link js-nav-link active">Home</a></li>
+            <li><a href="#" class="nav-link js-nav-link"></a>Reports</li>
           </ul>
         </div>
       </div>
@@ -21,7 +21,7 @@
 
     <!-- Home Page -->
 
-    <div id="home" class="page">
+    <div id="home" class="page js-page">
       <div class="container">
         <h1 class="text-center">Focus Timer</h1>
 
@@ -30,14 +30,14 @@
           <div class="time-display" id="timerDisplay">25:00</div>
 
           <div class="timer-controls">
-            <input type="number" class="timer-input" />
+            <input type="number" class="timer-input" id="minutesInput" />
             <span>minutes</span>
           </div>
 
           <div class="timer-controls">
-            <button class="btn">Start</button>
-            <button class="btn">Pause</button>
-            <button class="btn">Stop</button>
+            <button class="btn" id="startBtn">Start</button>
+            <button class="btn" id="pauseBtn">Pause</button>
+            <button class="btn" id="stopBtn">Stop</button>
           </div>
         </div>
 
@@ -74,7 +74,7 @@
     </div>
 
     <!-- Report Page -->
-    <div class="page" id="report">
+    <div class="page js-page" id="report">
       <div class="container">
         <h1 class="text-center">Focus Reports</h1>
 
@@ -109,5 +109,8 @@
         <!-- Simple Charts -->
       </div>
     </div>
+
+    <!-- link to js -->
+    <script src="/script/app.js"></script>
   </body>
 </html>
