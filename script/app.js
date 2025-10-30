@@ -7,7 +7,7 @@ let state = {
     remainingSeconds: 1800,
     interval: null,
   },
-  session: [],
+  sessions: [],
 };
 
 // ===== domElements =====
@@ -22,6 +22,11 @@ const elements = {
   startBtn: document.getElementById("startBtn"),
   pauseBtn: document.getElementById("pauseBtn"),
   stopBtn: document.getElementById("stopBtn"),
+
+  // Today Stats
+  todayTotal: document.getElementById("todayTotal"),
+  todaySessions: document.getElementById("todaySessions"),
+  todayAverage: document.getElementById("todayAvg"),
 };
 
 // ===== Initialize the App =====
@@ -45,26 +50,20 @@ function startTimer() {
       state.timer.isPaused = false;
     } else {
       // Start new timer
-      const minutes = elements.minutesInput.value || 30;
-      state.timer.totalSeconds = minutes * 60;
-      state.timer.remainingSeconds = minutes * 60;
+      resetTimer();
+      // const minutes = Number(elements.minutesInput.value) || 30;
+      // state.timer.totalSeconds = minutes * 60;
+      // state.timer.remainingSeconds = minutes * 60;
     }
 
     state.timer.isRunning = true;
     console.log("Focus Timer Started▶️");
     state.timer.interval = setInterval(() => {
-      state.timer.remainingSeconds--;
-
-      if (state.timer.remainingSeconds <= 0) {
-        // Timer completed
-        clearInterval(state.timer.interval);
-        state.timer.isRunning = false;
-        resetTimer();
-      }
-      updateTimerDisplay();
+      updateTimer();
+      // console.log(state.timer.remainingSeconds);
     }, 1000);
 
-    updateTimerDisplay();
+    updateTimerDisplay(); // initial timer display
   }
 }
 
@@ -84,6 +83,8 @@ function stopTimer() {
     console.log("Focus Timer Stopped⏹️");
     clearInterval(state.timer.interval);
 
+    saveSession();
+    updateTodayStats();
     resetTimer();
     updateTimerDisplay();
   }
@@ -98,6 +99,66 @@ function resetTimer() {
 // console.log(input);
 // console.log(typeof input);
 
+function updateTimer() {
+  state.timer.remainingSeconds--;
+
+  if (state.timer.remainingSeconds <= 0) {
+    // Timer completed
+    clearInterval(state.timer.interval);
+    state.timer.isRunning = false;
+    resetTimer();
+  }
+  updateTimerDisplay();
+}
+
+// ===== Session Management =====
+function saveSession() {
+  const session = {
+    id: Date.now(),
+    date: new Date().toISOString(),
+    duration: Math.floor(
+      (state.timer.totalSeconds - state.timer.remainingSeconds) / 60
+    ), // in minutes
+    completed: state.timer.remainingSeconds <= 0,
+  };
+
+  state.sessions.unshift(session);
+  localStorage.setItem("focusSessions", JSON.stringify(state.sessions));
+  console.log(state.sessions);
+  // console.log(state.timer.remainingSeconds);
+  // console.log(state.timer.totalSeconds);
+}
+
+// ===== Stats Calculation =====
+function updateTodayStats() {
+  const today = new Date().toDateString();
+  const todaySessions = state.sessions.filter(
+    (session) => new Date(session.date).toDateString() === today
+  );
+
+  const totalMinutes = todaySessions.reduce(
+    (sum, session) => sum + session.duration,
+    0
+  ); // in minutes
+  const sessionCount = todaySessions.length;
+  const average =
+    sessionCount > 0 ? Math.round(totalMinutes / sessionCount) : 0; // in minutes
+
+  elements.todayTotal.textContent = formatTime(totalMinutes);
+  elements.todaySessions.textContent = sessionCount;
+  elements.todayAverage.textContent = formatTime(average);
+  console.log(totalMinutes);
+  console.log(sessionCount);
+  console.log(average);
+}
+
+// ===== Utility Functions =====
+function formatTime(minutes) {
+  const hours = Math.floor(minutes / 60);
+  const mins = minutes % 60;
+  return hours > 0 ? `${hours}hrs ${mins}min` : ` ${mins}min`;
+}
+
 // ===== Event Listeners =====
 function setupEventHandlers() {
   elements.startBtn.addEventListener("click", startTimer);
@@ -107,3 +168,7 @@ function setupEventHandlers() {
 
 // ===== Load the App =====
 document.addEventListener("DOMContentLoaded", initializeApp);
+
+// const date = new Date();
+// const formatted = date.toISOString();
+// console.log(new Date().toDateString());
