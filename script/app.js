@@ -39,7 +39,6 @@ function updateTimerDisplay() {
     .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
 }
 function startTimer() {
-  console.log("Focus Timer Started⌛");
   if (!state.timer.isRunning) {
     if (state.timer.isPaused) {
       // Resume from paused state
@@ -52,6 +51,7 @@ function startTimer() {
     }
 
     state.timer.isRunning = true;
+    console.log("Focus Timer Started▶️");
     state.timer.interval = setInterval(() => {
       state.timer.remainingSeconds--;
 
@@ -68,8 +68,29 @@ function startTimer() {
   }
 }
 
+function pauseTimer() {
+  if (state.timer.isRunning && !state.timer.isPaused) {
+    state.timer.isPaused = true;
+    console.log("Focus Timer Paused⏸️");
+    state.timer.isRunning = false;
+    clearInterval(state.timer.interval);
+  }
+}
+
+function stopTimer() {
+  if (state.timer.isRunning || state.timer.isPaused) {
+    state.timer.isRunning = false;
+    state.timer.isPaused = false;
+    console.log("Focus Timer Stopped⏹️");
+    clearInterval(state.timer.interval);
+
+    resetTimer();
+    updateTimerDisplay();
+  }
+}
+
 function resetTimer() {
-  const minutes = Number(elements.minutesInput.value) || 25;
+  const minutes = Number(elements.minutesInput.value) || 30;
   state.timer.totalSeconds = minutes * 60;
   state.timer.remainingSeconds = minutes * 60;
 }
@@ -80,6 +101,8 @@ function resetTimer() {
 // ===== Event Listeners =====
 function setupEventHandlers() {
   elements.startBtn.addEventListener("click", startTimer);
+  elements.pauseBtn.addEventListener("click", pauseTimer);
+  elements.stopBtn.addEventListener("click", stopTimer);
 }
 
 // ===== Load the App =====
