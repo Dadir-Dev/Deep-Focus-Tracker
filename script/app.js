@@ -8,6 +8,7 @@ let state = {
     interval: null,
   },
   sessions: [],
+  currentTimeframe: "today",
 };
 
 // ===== domElements =====
@@ -23,10 +24,17 @@ const elements = {
   pauseBtn: document.getElementById("pauseBtn"),
   stopBtn: document.getElementById("stopBtn"),
 
-  // Today Stats
+  // Home Page Stats
   todayTotal: document.getElementById("todayTotal"),
   todaySessions: document.getElementById("todaySessions"),
   todayAverage: document.getElementById("todayAvg"),
+
+  // Report Page Stats
+  timeframeBtns: document.querySelectorAll(".timeframe-btn"),
+  reportTotal: document.getElementById("reportTotal"),
+  reportSessions: document.getElementById("reportSessions"),
+  reportAvg: document.getElementById("reportAvg"),
+  reportLongest: document.getElementById("reportLongest"),
 };
 
 // ===== Initialize the App =====
@@ -84,7 +92,6 @@ function stopTimer() {
     clearInterval(state.timer.interval);
 
     saveSession();
-    updateTodayStats();
     resetTimer();
     updateTimerDisplay();
   }
@@ -127,9 +134,15 @@ function saveSession() {
   console.log(state.sessions);
   // console.log(state.timer.remainingSeconds);
   // console.log(state.timer.totalSeconds);
+  updateStats();
 }
 
 // ===== Stats Calculation =====
+function updateStats() {
+  updateTodayStats();
+  updateReportStats();
+}
+
 function updateTodayStats() {
   const today = new Date().toDateString();
   const todaySessions = state.sessions.filter(
@@ -147,9 +160,61 @@ function updateTodayStats() {
   elements.todayTotal.textContent = formatTime(totalMinutes);
   elements.todaySessions.textContent = sessionCount;
   elements.todayAverage.textContent = formatTime(average);
-  console.log(totalMinutes);
-  console.log(sessionCount);
-  console.log(average);
+  // console.log(totalMinutes);
+  // console.log(sessionCount);
+  // console.log(average);
+}
+
+function updateReportStats() {
+  const filteredSessions = filterSessionsByTimeframe(state.currentTimeframe);
+  const totalMinutes = filteredSessions.reduce(
+    (sum, session) => sum + session.duration,
+    0
+  );
+
+  const sessionCount = filteredSessions.length;
+  const average =
+    sessionCount > 0 ? Math.round(totalMinutes / sessionCount) : 0;
+  const longest =
+    sessionCount > 0 ? Math.max(...filteredSessions.map((s) => s.duration)) : 0;
+  console.log(filteredSessions.map((s) => s.duration));
+
+  elements.reportTotal.textContent = formatTime(totalMinutes);
+  elements.reportSessions.textContent = sessionCount;
+  elements.reportAvg.textContent = formatTime(average);
+  elements.reportLongest.textContent = formatTime(longest);
+}
+
+function filterSessionsByTimeframe(timeframe) {
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+  switch (timeframe) {
+    case "today":
+      return state.sessions.filter(
+        (session) =>
+          new Date(session.date).toDateString() === today.toDateString()
+      );
+
+    case "week":
+      const weekAgo = new Date(today); // makes a copy of the today object
+      weekAgo.setDate(today.getDate() - 7); // rewinds the copy by 7 days
+      return state.sessions.filter(
+        (session) => new Date(session.date) >= weekAgo
+      );
+
+    case "month":
+      const monthAgo = new Date(today);
+      monthAgo.setDate(today.getDate() - 30);
+      return (
+        state.sessions.filter((session) => new Date(session.date)) >= monthAgo
+      );
+
+    case "all":
+      return state.sessions;
+    default:
+      return state.sessions;
+  }
 }
 
 // ===== Utility Functions =====
