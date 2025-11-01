@@ -1,0 +1,80 @@
+:root {
+  /* Colors - Semantic naming */
+  --primary-500: #2563eb;
+  --primary-600: #1d4ed8;
+
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-500: #64748b;
+  --gray-700: #334155;
+  --gray-900: #0f172a;
+
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+
+  /* Semantic color assignments */
+  --bg-primary: var(--gray-50);
+  --bg-surface: #ffffff;
+  --text-primary: var(--gray-900);
+  --text-secondary: var(--gray-500);
+
+  /* TYPOGRAPHY */
+  --font-family: "Segoe UI", system-ui, sans-serif;
+
+  /* --- Static Font Sizes --- */
+  --fs-12: 0.75rem; /* 12px */
+  --fs-14: 0.875rem; /* 14px */
+  --fs-16: 1rem; /* 16px (body copy) */
+  --fs-18: 1.125rem; /*18px*/
+
+  /* --- Fluid Font Sizes (Headings) --- */
+  --font-lg: clamp(
+    1.25rem,
+    1rem + 0.5vw,
+    1.5rem
+  ); /* 1.25rem (20px) -> 1.5rem (24px) */
+  --font-xl: clamp(
+    1.5rem,
+    1rem + 1.5vw,
+    2.25rem
+  ); /* 1.5rem (24px) -> 2.25rem (36px) */
+  --font-xxl: clamp(
+    2rem,
+    1rem + 3vw,
+    3.75rem
+  ); /* 2rem (32px) -> 3.75rem (60px) */
+
+  /* SPACING */
+  /* --- Static Spacing (Component-Level) --- */
+  --space-1: 0.25rem; /* 4px */
+  --space-2: 0.5rem; /* 8px */
+  --space-3: 0.75rem; /* 12px */
+
+  /* --- Fluid Spacing (Layout-Level) --- */
+
+  --space-4: clamp(
+    1rem,
+    1rem + 0.25vw,
+    1.25rem
+  ); /* 16px (mobile) -> 20px (desktop) */
+  --space-6: clamp(
+    1.5rem,
+    1.5rem + 0.5vw,
+    2rem
+  ); /* 24px (mobile) -> 32px (desktop) */
+  --space-8: clamp(
+    2rem,
+    2rem + 1vw,
+    3rem
+  ); /* 32px (mobile) -> 48px (desktop) */
+
+  /* BORDER RADIUS */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+
+  /* SHADOWS */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
