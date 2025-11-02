@@ -101,6 +101,82 @@ body {
   margin: var(--space-6) 0;
 }
 
+.btn {
+  padding: var(--space-3) var(--space-6);
+  font-weight: 600;
+  font-size: var(--fs-16);
+  border-radius: var(--radius-md);
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-width: 100px;
+  border: none;
+}
+
+.btn-primary {
+  background-color: var(--primary-500);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-600);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: var(--gray-100);
+  color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+  background-color: var(--gray-500);
+  color: white;
+}
+
+.btn-danger {
+  background-color: var(--error);
+}
+
+.btn-danger:hover {
+  background-color: #dc2626;
+  transform: translateY(-2px);
+}
+
+/* Button States */
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.btn:disabled:hover {
+  transform: none;
+}
+
+.timer-input {
+  padding: var(--space-3);
+  border: 2px solid var(--gray-500);
+  border-radius: var(--radius-md);
+  font-size: var(--font-lg);
+  width: 80px;
+  text-align: center;
+  font-weight: 600;
+  transition: border-color 0.3s ease;
+}
+
+.timer-input:disabled {
+  background-color: var(--gray-100);
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.timer-input:focus {
+  outline: none;
+  border-color: var(--primary-500);
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
