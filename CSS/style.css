@@ -76,6 +76,31 @@ body {
   display: block;
 }
 
+.timer-container {
+  background: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  text-align: center;
+  padding: var(--space-8);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.timer-display {
+  font-size: clamp(3rem, 10vw, 4rem);
+  font-weight: 700;
+  color: var(--primary-500);
+  margin: var(--space-4) 0;
+  /* font-variant-numeric: tabular-nums; Prevents number jumping */
+}
+
+.timer-controls {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: center;
+  margin: var(--space-6) 0;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
