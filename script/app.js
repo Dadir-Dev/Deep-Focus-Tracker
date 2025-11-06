@@ -1,5 +1,6 @@
 import { startTimer, pauseTimer, stopTimer } from "./modules/timer.js";
 import { saveSessions, loadSessions } from "./modules/storage.js";
+import { calculateSessionStats } from "./modules/statistics.js";
 // ===== App State =====
 export let state = {
   timer: {
@@ -44,7 +45,8 @@ function initializeApp() {
   console.log("Deep Focus Tracker App initialized 🚀");
   state.sessions = loadSessions();
   setupEventHandlers();
-  updateStats();
+  updateTodayStats();
+  updateReportStats();
 }
 
 // ===== Session Management =====
@@ -68,12 +70,16 @@ export function saveSession() {
 }
 
 // ===== Stats Calculation =====
+/*
 function updateStats() {
   updateTodayStats();
   updateReportStats();
 }
+  */
 
 function updateTodayStats() {
+  const stats = calculateSessionStats(state.sessions, "today");
+  /*
   const today = new Date().toDateString();
   const todaySessions = state.sessions.filter(
     (session) => new Date(session.date).toDateString() === today
@@ -86,36 +92,36 @@ function updateTodayStats() {
   const sessionCount = todaySessions.length;
   const average =
     sessionCount > 0 ? Math.round(totalMinutes / sessionCount) : 0; // in minutes
+  */
 
-  elements.todayTotal.textContent = formatTime(totalMinutes);
-  elements.todaySessions.textContent = sessionCount;
-  elements.todayAverage.textContent = formatTime(average);
-  // console.log(totalMinutes);
-  // console.log(sessionCount);
-  // console.log(average);
+  elements.todayTotal.textContent = stats.totalFormatted;
+  elements.todaySessions.textContent = stats.count;
+  elements.todayAverage.textContent = stats.averageFormatted;
 }
 
 function updateReportStats() {
+  const stats = calculateSessionStats(state.sessions, state.currentTimeframe);
+  /*
   const filteredSessions = filterSessionsByTimeframe(state.currentTimeframe);
+
   const totalMinutes = filteredSessions.reduce(
     (sum, session) => sum + session.duration,
     0
   );
-
   const sessionCount = filteredSessions.length;
   const average =
     sessionCount > 0 ? Math.round(totalMinutes / sessionCount) : 0;
   const longest =
     sessionCount > 0 ? Math.max(...filteredSessions.map((s) => s.duration)) : 0;
-  console.log(filteredSessions.map((s) => s.duration));
+    */
 
-  elements.reportTotal.textContent = formatTime(totalMinutes);
-  elements.reportSessions.textContent = sessionCount;
-  elements.reportAvg.textContent = formatTime(average);
-  elements.reportLongest.textContent = formatTime(longest);
+  elements.reportTotal.textContent = stats.totalFormatted;
+  elements.reportSessions.textContent = stats.count;
+  elements.reportAvg.textContent = stats.averageFormatted;
+  elements.reportLongest.textContent = stats.longestFormatted;
 }
 
-function filterSessionsByTimeframe(timeframe) {
+/* function filterSessionsByTimeframe(timeframe) {
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
@@ -146,13 +152,16 @@ function filterSessionsByTimeframe(timeframe) {
       return state.sessions;
   }
 }
+  */
 
 // ===== Utility Functions =====
-function formatTime(minutes) {
+
+/* function formatTime(minutes) {
   const hours = Math.floor(minutes / 60);
   const mins = minutes % 60;
   return hours > 0 ? `${hours}hrs ${mins}min` : ` ${mins}min`;
 }
+  */
 
 // ===== Event Listeners =====
 function setupEventHandlers() {
@@ -166,4 +175,4 @@ document.addEventListener("DOMContentLoaded", initializeApp);
 
 // const date = new Date();
 // const formatted = date.toISOString();
-// console.log(new Date().toDateString());
+// console.log(new Date(formatted).toDateString());
