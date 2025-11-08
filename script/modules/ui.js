@@ -59,3 +59,43 @@ function formatSessionDate(dateString) {
     })
   );
 }
+
+// ===== Navigation Function =====
+export function setupNavigation(navLinks, pages, onPageChange = null) {
+  navLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const targetPage = link.getAttribute("data-page");
+      if (targetPage) {
+        switchPage(targetPage, navLinks, pages, onPageChange);
+      }
+    });
+  });
+}
+
+export function switchPage(targetPage, navLinks, pages, onPageChange = null) {
+  // Update active nav link
+  navLinks.forEach((link) => {
+    const isActive = link.getAttribute("data-page") === targetPage;
+    link.classList.toggle("active", isActive);
+  });
+
+  pages.forEach((page) => {
+    const isTarget = page.id === targetPage;
+    page.classList.toggle("active", isTarget);
+  });
+
+  // Notify about page change
+  if (onPageChange) {
+    onPageChange(targetPage);
+  }
+
+  console.log(`📍 Navigated to: ${targetPage}`);
+}
+
+export function getCurrentPage(pages) {
+  return (
+    Array.from(pages).find((page) => page.classList.contains("active"))?.id ||
+    "home"
+  );
+}

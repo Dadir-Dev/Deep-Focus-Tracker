@@ -17,6 +17,7 @@ import {
   updateButtonStates,
   renderSessionList,
   updateStatsDisplay,
+  setupNavigation,
 } from "./modules/ui.js";
 
 // ===== App State =====
@@ -24,6 +25,7 @@ export let state = {
   timer: createTimerState(), // Use the factory function
   sessions: [],
   currentTimeframe: TIMEFRAME_FILTERS.WEEK,
+  currentPage: "home",
 };
 
 // ===== domElements =====
@@ -58,22 +60,15 @@ function initializeApp() {
   console.log("Deep Focus Tracker App initialized 🚀");
   state.sessions = loadSessions();
   setupEventHandlers();
+  setupNavigation(elements.navLinks, elements.pages, handlePageChange);
   updateTodayStats();
   updateReportStats();
 }
 
 // ===== Timer Functions =====
-/*
-function updateTimerDisplay() {
-  elements.timerDisplay.textContent = formatTimerDisplay(
-    state.timer.remainingSeconds
-  );
-}
-  */
-
 function updateDisplay() {
   updateTimerDisplay(elements.timerDisplay, state.timer.remainingSeconds);
-  updateButtonStates(elements, state.timer);
+  // updateButtonStates(elements, state.timer);
 }
 
 function startTimerHandler() {
@@ -91,7 +86,7 @@ function stopTimerHandler() {
   stopTimer(state.timer);
   saveSession();
   resetTimer(state.timer, parseInt(elements.minutesInput.value) || 25);
-  updateTimerDisplay();
+  updateTimerDisplay(elements.timerDisplay, state.timer.remainingSeconds);
 }
 
 function onTimerComplete() {
@@ -146,6 +141,21 @@ function updateReportStats() {
   elements.reportSessions.textContent = stats.count;
   elements.reportAvg.textContent = stats.averageFormatted;
   elements.reportLongest.textContent = stats.longestFormatted;
+}
+
+// ===== Page Navigation Handler =====
+function handlePageChange(newPage) {
+  state.currentPage = newPage;
+  console.log(`Page changed to: ${newPage}`);
+  if (newPage === "report") {
+    // Refresh report data when navigating to reports
+    updateReportStats();
+  }
+
+  // Timer continues running uninterrupted!
+  if (state.timer.isRunning) {
+    console.log("⏰ Timer continues running in background");
+  }
 }
 
 // ===== Event Listeners =====
