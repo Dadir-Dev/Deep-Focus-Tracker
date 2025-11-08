@@ -1,4 +1,3 @@
-import { state, elements, saveSession } from "../app.js";
 // ===== Timer Logic =====
 export function createTimerState() {
   return {
@@ -61,7 +60,7 @@ export function stopTimer(timerState) {
     timerState.isPaused = false;
 
     if (timerState.intervalId) {
-      clearInterval(state.timer.intervalId);
+      clearInterval(timerState.intervalId);
       timerState.intervalId = null;
     }
 

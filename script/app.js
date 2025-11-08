@@ -7,13 +7,23 @@ import {
   formatTimerDisplay,
 } from "./modules/timer.js";
 import { saveSessions, loadSessions } from "./modules/storage.js";
-import { calculateSessionStats } from "./modules/statistics.js";
+import {
+  calculateSessionStats,
+  getRecentSessions,
+} from "./modules/statistics.js";
+import { TIMEFRAME_FILTERS } from "./constants.js";
+import {
+  updateTimerDisplay,
+  updateButtonStates,
+  renderSessionList,
+  updateStatsDisplay,
+} from "./modules/ui.js";
 
 // ===== App State =====
 export let state = {
   timer: createTimerState(), // Use the factory function
   sessions: [],
-  currentTimeframe: "today",
+  currentTimeframe: TIMEFRAME_FILTERS.WEEK,
 };
 
 // ===== domElements =====
@@ -33,6 +43,7 @@ export const elements = {
   todayTotal: document.getElementById("todayTotal"),
   todaySessions: document.getElementById("todaySessions"),
   todayAverage: document.getElementById("todayAvg"),
+  recentSessions: document.getElementById("recentSessions"),
 
   // Report Page Stats
   timeframeBtns: document.querySelectorAll(".timeframe-btn"),
@@ -52,16 +63,24 @@ function initializeApp() {
 }
 
 // ===== Timer Functions =====
+/*
 function updateTimerDisplay() {
   elements.timerDisplay.textContent = formatTimerDisplay(
     state.timer.remainingSeconds
   );
 }
+  */
+
+function updateDisplay() {
+  updateTimerDisplay(elements.timerDisplay, state.timer.remainingSeconds);
+  updateButtonStates(elements, state.timer);
+}
 
 function startTimerHandler() {
   const minutes = parseInt(elements.minutesInput.value) || 25;
   resetTimer(state.timer, minutes);
-  startTimer(state.timer, updateTimerDisplay, onTimerComplete);
+  startTimer(state.timer, updateDisplay, onTimerComplete);
+  updateDisplay();
 }
 
 function pauseTimerHandler() {
@@ -109,9 +128,15 @@ function updateStats() {
 function updateTodayStats() {
   const todayStats = calculateSessionStats(state.sessions, "today");
 
-  elements.todayTotal.textContent = todayStats.totalFormatted;
-  elements.todaySessions.textContent = todayStats.count;
-  elements.todayAverage.textContent = todayStats.averageFormatted;
+  updateStatsDisplay(elements, todayStats);
+
+  // elements.todayTotal.textContent = todayStats.totalFormatted;
+  // elements.todaySessions.textContent = todayStats.count;
+  // elements.todayAverage.textContent = todayStats.averageFormatted;
+
+  // Update recent sessions
+  const recentSessions = getRecentSessions(state.sessions, 5);
+  renderSessionList(elements.recentSessions, recentSessions);
 }
 
 function updateReportStats() {
@@ -132,3 +157,4 @@ function setupEventHandlers() {
 
 // ===== Load the App =====
 document.addEventListener("DOMContentLoaded", initializeApp);
+// console.log(elements.recentSessions.innerHTML);
