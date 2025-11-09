@@ -61,6 +61,7 @@ function initializeApp() {
   state.sessions = loadSessions();
   setupEventHandlers();
   setupNavigation(elements.navLinks, elements.pages, handlePageChange);
+  setupTimeFrameHandler();
   updateTodayStats();
   updateReportStats();
 }
@@ -143,6 +144,21 @@ function updateReportStats() {
   elements.reportLongest.textContent = stats.longestFormatted;
 }
 
+function setupTimeFrameHandler() {
+  elements.timeframeBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const timeframe = btn.dataset.timeframe;
+      console.log("Timeframe Clicked:", timeframe);
+      state.currentTimeframe = timeframe;
+
+      // update active state
+      elements.timeframeBtns.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      updateReportStats();
+    });
+  });
+}
 // ===== Page Navigation Handler =====
 function handlePageChange(newPage) {
   state.currentPage = newPage;
