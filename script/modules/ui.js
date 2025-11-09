@@ -67,10 +67,20 @@ export function setupNavigation(navLinks, pages, onPageChange = null) {
       e.preventDefault();
       const targetPage = link.getAttribute("data-page");
       if (targetPage) {
+        window.location.hash = targetPage;
         switchPage(targetPage, navLinks, pages, onPageChange);
       }
     });
   });
+  // Handle browser back/forward buttons
+  window.addEventListener("hashchange", () => {
+    const targetPage = window.location.hash.replace("#", "") || "home";
+    switchPage(targetPage, navLinks, pages, onPageChange);
+  });
+
+  // Initial page from URL
+  const initialPage = window.location.hash.replace("#", "") || "home";
+  switchPage(initialPage, navLinks, pages, onPageChange);
 }
 
 export function switchPage(targetPage, navLinks, pages, onPageChange = null) {
