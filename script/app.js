@@ -20,6 +20,7 @@ import {
   updateStatsDisplay,
   setupNavigation,
   getWeeklyData,
+  renderWeeklyCharts,
 } from "./modules/ui.js";
 
 // ===== App State =====
@@ -147,6 +148,13 @@ function updateReportStats() {
 
   // Update session list for current timeframe
   updateReportSessionList();
+
+  renderWeeklyCharts(
+    elements.chart,
+    elements.chartLegend,
+    state.sessions,
+    state.currentTimeframe
+  );
 }
 
 function updateReportSessionList() {
