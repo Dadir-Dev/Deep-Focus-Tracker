@@ -351,7 +351,7 @@ body {
 
 .chart-bars {
   border-bottom: 2px solid var(--gray-200);
-  margin-bottom: var(--space-4);
+  margin: var(--space-6) 0;
 }
 
 /* Chart Legend */
@@ -389,4 +389,23 @@ body {
   color: var(--primary-500);
   font-weight: 700;
   margin-top: var(--space-1);
+}
+
+/* Responsive Chart */
+@media (max-width: 480px) {
+  .chart-bars {
+    gap: 6px;
+  }
+
+  .timeframe-btn {
+    min-width: 80px;
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--fs-12);
+  }
+
+  .legend-stats {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+  }
 }
