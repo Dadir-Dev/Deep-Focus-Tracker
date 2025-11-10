@@ -95,12 +95,32 @@
 
         <!-- Timeframe Selector -->
         <div class="timeframe-selector">
-          <button class="timeframe-btn" data-timeframe="today">Today</button>
-          <button class="timeframe-btn" data-timeframe="week">This Week</button>
-          <button class="timeframe-btn" data-timeframe="month">
+          <button
+            class="timeframe-btn js-timeframe-btn active"
+            data-timeframe="today"
+          >
+            Today
+          </button>
+          <button class="timeframe-btn js-timeframe-btn" data-timeframe="week">
+            This Week
+          </button>
+          <button class="timeframe-btn js-timeframe-btn" data-timeframe="month">
             This Month
           </button>
-          <button class="timeframe-btn" data-timeframe="all">All Time</button>
+          <button class="timeframe-btn js-timeframe-btn" data-timeframe="all">
+            All Time
+          </button>
+        </div>
+
+        <!-- Simple Charts -->
+        <div class="chart-container">
+          <h3>Weekly Focus Distribution</h3>
+          <div id="chart" class="chart">
+            <!-- Chart will be rendered here dynamically -->
+          </div>
+          <div id="chartLegend" class="chart-legend">
+            <!-- Legend will be generated here -->
+          </div>
         </div>
 
         <!-- Stats Overview -->
@@ -123,7 +143,16 @@
           </div>
         </div>
 
-        <!-- Simple Charts -->
+        <!-- Session History -->
+        <div class="mt-2">
+          <h2 class="mb-1">Session History</h2>
+          <div class="session-list" id="reportSessionsList">
+            <div class="session-item">
+              <span>No sessions yet</span>
+              <span class="session-duration">-</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 

@@ -275,6 +275,7 @@ body {
 /* Report Page Components */
 .timeframe-selector {
   display: flex;
+  justify-content: center;
   gap: var(--space-6);
   margin-bottom: var(--space-6);
   flex-wrap: wrap;
@@ -282,23 +283,43 @@ body {
 
 .timeframe-btn {
   background-color: var(--bg-surface);
-  padding: var(--space-3) var(--space-6);
+  padding: var(--space-3) var(--space-4);
   border: 2px solid var(--gray-500);
   border-radius: var(--radius-md);
   font-size: var(--fs-16);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  color: var(--text-secondary);
+  min-width: 100px;
 }
 
 .timeframe-btn:hover {
   border-color: var(--primary-500);
+  color: var(--text-primary);
+  transform: translateY(-1px);
 }
 
 .timeframe-btn.active {
   background: var(--primary-500);
   color: white;
   border-color: var(--primary-500);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Active state animation */
+.timeframe-btn.active {
+  animation: gentlePulse 2s infinite;
+}
+
+@keyframes gentlePulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
 }
 
 .sr-only {

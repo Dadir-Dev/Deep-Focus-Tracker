@@ -9,6 +9,7 @@ import {
 import { saveSessions, loadSessions } from "./modules/storage.js";
 import {
   calculateSessionStats,
+  filterSessionsByTimeframe,
   getRecentSessions,
 } from "./modules/statistics.js";
 import { TIMEFRAME_FILTERS } from "./constants.js";
@@ -18,13 +19,14 @@ import {
   renderSessionList,
   updateStatsDisplay,
   setupNavigation,
+  getWeeklyData,
 } from "./modules/ui.js";
 
 // ===== App State =====
 export let state = {
   timer: createTimerState(), // Use the factory function
   sessions: [],
-  currentTimeframe: TIMEFRAME_FILTERS.WEEK,
+  currentTimeframe: TIMEFRAME_FILTERS.TODAY,
   currentPage: "home",
 };
 
@@ -53,6 +55,9 @@ export const elements = {
   reportSessions: document.getElementById("reportSessions"),
   reportAvg: document.getElementById("reportAvg"),
   reportLongest: document.getElementById("reportLongest"),
+  reportSessionsList: document.getElementById("reportSessionsList"),
+  chart: document.getElementById("chart"),
+  chartLegend: document.getElementById("chartLegend"),
 };
 
 // ===== Initialize the App =====
@@ -64,6 +69,7 @@ function initializeApp() {
   setupTimeFrameHandler();
   updateTodayStats();
   updateReportStats();
+  getWeeklyData(state.sessions);
 }
 
 // ===== Timer Functions =====
@@ -126,10 +132,6 @@ function updateTodayStats() {
 
   updateStatsDisplay(elements, todayStats);
 
-  // elements.todayTotal.textContent = todayStats.totalFormatted;
-  // elements.todaySessions.textContent = todayStats.count;
-  // elements.todayAverage.textContent = todayStats.averageFormatted;
-
   // Update recent sessions
   const recentSessions = getRecentSessions(state.sessions, 5);
   renderSessionList(elements.recentSessions, recentSessions);
@@ -142,13 +144,24 @@ function updateReportStats() {
   elements.reportSessions.textContent = stats.count;
   elements.reportAvg.textContent = stats.averageFormatted;
   elements.reportLongest.textContent = stats.longestFormatted;
+
+  // Update session list for current timeframe
+  updateReportSessionList();
+}
+
+function updateReportSessionList() {
+  const filterSessions = filterSessionsByTimeframe(
+    state.sessions,
+    state.currentTimeframe
+  );
+  renderSessionList(elements.reportSessionsList, filterSessions);
 }
 
 function setupTimeFrameHandler() {
   elements.timeframeBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
       const timeframe = btn.dataset.timeframe;
-      console.log("Timeframe Clicked:", timeframe);
+      // console.log("Timeframe Clicked:", timeframe);
       state.currentTimeframe = timeframe;
 
       // update active state
@@ -156,6 +169,7 @@ function setupTimeFrameHandler() {
       btn.classList.add("active");
 
       updateReportStats();
+      console.log(`📊 Timeframe changed to: ${timeframe}`);
     });
   });
 }
@@ -183,4 +197,3 @@ function setupEventHandlers() {
 
 // ===== Load the App =====
 document.addEventListener("DOMContentLoaded", initializeApp);
-// console.log(elements.recentSessions.innerHTML);
