@@ -65,10 +65,11 @@ A professional, single-page web application for tracking focus sessions and stud
 
 ## Viewing Reports
 
-Navigate to the Reports page
+1. Navigate to the Reports page
+2. Use timeframe filters (Today/Week/Month/All) to view different periods
+3. Analyze your focus patterns through interactive charts and statistics
+4. Review detailed session history with timestamps
 
-Use timeframe filters (Today/Week/Month/All) to view different periods
+# 🧑‍💻 Author
 
-Analyze your focus patterns through interactive charts and statistics
-
-Review detailed session history with timestamps
+Dadir Dev Frontend Developer passionate about clean design, simplicity, and functional UI.
