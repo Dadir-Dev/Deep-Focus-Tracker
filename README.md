@@ -4,33 +4,33 @@ A professional, single-page web application for tracking focus sessions and stud
 
 # ✨ Features
 
-- Focus Timer - Customizable countdown timer with start, pause, and stop controls
+- ⏱️ **Focus Timer** - Customizable countdown timer with start, pause, and stop controls
 
-- Session Tracking - Automatic recording of study sessions with duration and completion status
+- 📘 **Session Tracking** - Automatic recording of study sessions with duration and completion status
 
-- Local Storage - Persistent data storage across browser sessions
+- 💾 **Local Storage** - Persistent data storage across browser sessions
 
-- Real-time Statistics - Live updates of focus metrics and progress
+- 📊 **Real-time Statistics** - Live updates of focus metrics and progress
 
 # 📈 Analytics & Visualization
 
-- Timeframe Filtering - View data for Today, This Week, This Month, or All Time
+- 📅 **Timeframe Filtering** - View data for Today, This Week, This Month, or All Time
 
-- Interactive Charts - Visual representation of focus time distribution
+- 📉 **Interactive Charts** - Visual representation of focus time distribution
 
-- Session History - Detailed log of all completed focus sessions
+- 🧾 **Session History** - Detailed log of all completed focus sessions
 
-- Performance Metrics - Total time, session count, averages, and longest session tracking
+- 🕒 **Performance Metrics** - Total time, session count, averages, and longest session tracking
 
 # 🎨 User Experience
 
-- Single Page Application - Smooth navigation without page reloads
+- **Single Page Application** - Smooth navigation without page reloads
 
-- Responsive Design - Optimized for desktop, tablet, and mobile devices
+- **Responsive Design** - Optimized for desktop, tablet, and mobile devices
 
-- Modern UI/UX - Clean interface with smooth animations and transitions
+- **Modern UI/UX** - Clean interface with smooth animations and transitions
 
-- Accessibility - Semantic HTML and keyboard navigation support
+- **Accessibility** - Semantic HTML and keyboard navigation support
 
 # 🖼️ Screenshots
 
@@ -43,12 +43,11 @@ A professional, single-page web application for tracking focus sessions and stud
 
 ## Code Architecture
 
-- Modular Design - Separated concerns with dedicated modules
+- 🧱 **Modular Design** - Separated concerns with dedicated modules
 
-- State Management - Centralized application state
+- 🧩 **State Management** - Centralized application state
 
-- Event-Driven Architecture - Clean separation between logic and UI
--
+- 🔁 **Event-Driven Architecture** - Clean separation between logic and UI
 
 # 📁 Project Structure
 
@@ -56,14 +55,14 @@ A professional, single-page web application for tracking focus sessions and stud
 
 # 💡 Usage Guide
 
-## Starting a Focus Session
+## ▶️Starting a Focus Session
 
 1. Set your desired focus duration (default: 25 minutes)
 2. Click Start to begin the timer
 3. Use Pause to temporarily stop or Stop to end the session
 4. Completed sessions are automatically saved and added to your statistics
 
-## Viewing Reports
+## 📊Viewing Reports
 
 1. Navigate to the Reports page
 2. Use timeframe filters (Today/Week/Month/All) to view different periods
@@ -72,4 +71,15 @@ A professional, single-page web application for tracking focus sessions and stud
 
 # 🧑‍💻 Author
 
-Dadir Dev Frontend Developer passionate about clean design, simplicity, and functional UI.
+**Dadir Dev** Frontend Developer passionate about clean design, simplicity, and functional UI.
+
+🧱 [Frontend Mentor](https://www.frontendmentor.io/profile/Dadir-Dev)
+
+🌐 [GitHub](https://github.com/Dadir-Dev)
+
+💼 [LinkedIn](https://www.linkedin.com/in/abdikadir-mohammed-54717318b/)
+
+## ⭐ Acknowledgements
+
+Built as a personal productivity tool and coding practice project.
+If you find this project useful, consider giving it a ⭐ on GitHub!
