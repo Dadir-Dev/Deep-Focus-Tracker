@@ -34,6 +34,12 @@ A professional, single-page web application for tracking focus sessions and stud
 
 # 🖼️ Screenshots
 
+![](/screen%20shots/Screenshot%202025-11-13%20164115.png)
+![](/screen%20shots/Desktop%20view.png)
+![](/screen%20shots/Desktop%20view%20-%20reports%20page.png)
+![](/screen%20shots/Mobile%20view%20-%20home%20page.png)
+![](/screen%20shots/Mobile%20view.png)
+
 ## 🧩 Technologies Used
 
 - **HTML5**
