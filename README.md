@@ -1,6 +1,12 @@
 # 📊 Deep Focus - Personal Study Tracker
 
-A professional, single-page web application for tracking focus sessions and studying productivity. Built with vanilla JavaScript, HTML5, and CSS3 following modern frontend architecture patterns.
+A professional single-page web application designed to help you monitor and optimize your study habits. Deep Focus provides a clean, intuitive interface for tracking focus sessions, analyzing productivity patterns, and improving daily consistency.
+
+Built using HTML5, CSS3, and Vanilla JavaScript (ES6) with a modular, scalable frontend architecture.
+
+# 🚀 Live Demo
+
+🔗 Live Preview: https://dadir-dev.github.io/Deep-Focus-Tracker/
 
 # ✨ Features
 
@@ -24,13 +30,12 @@ A professional, single-page web application for tracking focus sessions and stud
 
 # 🎨 User Experience
 
-- **Single Page Application** - Smooth navigation without page reloads
+- ⚙️ **SPA (Single Page Application)** – Fast navigation with no page reloads
 
-- **Responsive Design** - Optimized for desktop, tablet, and mobile devices
+- 📱 **Responsive Layout** – Designed for desktop, tablet, and mobile
 
-- **Modern UI/UX** - Clean interface with smooth animations and transitions
-
-- **Accessibility** - Semantic HTML and keyboard navigation support
+- 💫 **Modern UI/UX** – Clean design with smooth transitions and minimal distractions
+- ♿ **Accessibility First** – Semantic HTML and full keyboard navigation support
 
 # 🖼️ Screenshots
 
@@ -77,7 +82,7 @@ A professional, single-page web application for tracking focus sessions and stud
 
 # 🧑‍💻 Author
 
-**Dadir Dev** Frontend Developer passionate about clean design, simplicity, and functional UI.
+**Dadir Dev** Frontend Developer passionate about building clean, functional interfaces with simple yet powerful UX.
 
 🧱 [Frontend Mentor](https://www.frontendmentor.io/profile/Dadir-Dev)
 
@@ -87,5 +92,5 @@ A professional, single-page web application for tracking focus sessions and stud
 
 ## ⭐ Acknowledgements
 
-Built as a personal productivity tool and coding practice project.
-If you find this project useful, consider giving it a ⭐ on GitHub!
+Deep Focus was built as a personal productivity tool and a frontend development project to sharpen real-world skills.
+If you like this project, consider giving it a ⭐ on GitHub!
